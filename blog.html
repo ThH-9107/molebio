@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Blog | Mole-Bio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: { midnight: '#020617', 'mid-dark': '#0a1628', neon: '#4ade80', cyan: '#22d3ee', 'neon-dim': '#86efac' },
+                fontFamily: { mono: ['Space Mono','monospace'], body: ['DM Sans','sans-serif'], display: ['Syne','sans-serif'] }
+            }}
+        }
+    </script>
+    <style>
+        body { background: #020617; font-family: 'DM Sans', sans-serif; color: #e2e8f0; }
+        .grad-text { background: linear-gradient(135deg,#fff 0%,#4ade80 45%,#22d3ee 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+        .glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(16px); border:1px solid rgba(74,222,128,0.15); }
+        .glass-card { background:rgba(10,22,40,0.8); backdrop-filter:blur(20px); border:1px solid rgba(74,222,128,0.1); }
+        .neon-border { border:1px solid #4ade80; box-shadow:0 0 20px rgba(74,222,128,0.3); }
+        .neon-hr { border:none; height:1px; background:linear-gradient(to right,transparent,#4ade80,transparent); opacity:0.3; }
+        .section-label { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.25em; color:#4ade80; text-transform:uppercase; }
+        .bio-tag { font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; padding:6px 16px; border:1px solid #4ade80; color:#4ade80; border-radius:2px; text-transform:uppercase; transition:all 0.3s; display:inline-flex; align-items:center; gap:6px; }
+        .bio-tag::before { content:'[ '; color:rgba(74,222,128,0.5); }
+        .bio-tag::after { content:' ]'; color:rgba(74,222,128,0.5); }
+        .bio-tag:hover { background:rgba(74,222,128,0.1); box-shadow:0 0 15px rgba(74,222,128,0.3); color:#fff; }
+        .blog-card { background:rgba(10,22,40,0.8); border:1px solid rgba(74,222,128,0.1); transition:all 0.35s ease; }
+        .blog-card:hover { border-color:rgba(74,222,128,0.4); box-shadow:0 0 30px rgba(74,222,128,0.1); transform:translateY(-6px); }
+        .featured-card { background:linear-gradient(135deg,rgba(10,22,40,0.9) 0%,rgba(2,6,23,0.95) 100%); border:1px solid rgba(74,222,128,0.3); box-shadow:0 0 40px rgba(74,222,128,0.15); transition:all 0.4s ease; }
+        .featured-card:hover { box-shadow:0 0 60px rgba(74,222,128,0.3); border-color:rgba(74,222,128,0.6); transform:translateY(-4px); }
+        .filter-btn { font-family:'Space Mono',monospace; font-size:0.75rem; letter-spacing:0.1em; padding:6px 18px; border-radius:2px; border:1px solid rgba(74,222,128,0.2); color:rgba(74,222,128,0.6); transition:all 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background:rgba(74,222,128,0.1); border-color:#4ade80; color:#4ade80; box-shadow:0 0 12px rgba(74,222,128,0.2); }
+        .grid-bg { background-image: linear-gradient(rgba(74,222,128,0.04) 1px,transparent 1px), linear-gradient(90deg,rgba(74,222,128,0.04) 1px,transparent 1px); background-size:60px 60px; }
+        #navbar.scrolled { background:rgba(2,6,23,0.85)!important; backdrop-filter:blur(24px); border-bottom:1px solid rgba(74,222,128,0.15); }
+        .reveal { opacity:0; transform:translateY(30px); transition:opacity 0.7s ease,transform 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+        .reveal-delay-1 { transition-delay:0.1s; } .reveal-delay-2 { transition-delay:0.2s; } .reveal-delay-3 { transition-delay:0.3s; }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-6 md:px-16 py-4 flex items-center justify-between transition-all duration-300">
+    <a href="./index.html" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg neon-border flex items-center justify-center">
+            <img src="./assets/img/619092936_25447345694967110_1532795051963747594_n-removebg-preview.png" class="w-7 h-7 object-contain" alt="Mole-Bio" onerror="this.style.display='none'">
+        </div>
+        <span class="font-display font-bold text-lg text-white group-hover:text-neon transition-colors">Mole<span class="text-neon">-Bio</span></span>
+    </a>
+    <ul class="hidden md:flex items-center gap-8">
+        <li><a href="./index.html#about" class="font-mono text-xs tracking-widest text-slate-400 hover:text-neon transition-colors uppercase">About</a></li>
+        <li><a href="./index.html#blog" class="font-mono text-xs tracking-widest text-neon transition-colors uppercase">Blog</a></li>
+        <li><a href="./gallery.html" class="font-mono text-xs tracking-widest text-slate-400 hover:text-neon transition-colors uppercase">Gallery</a></li>
+    </ul>
+    <a href="./index.html" class="bio-tag text-xs hover:no-underline">← Home</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="pt-40 pb-20 px-6 md:px-16 relative grid-bg overflow-hidden">
+    <div class="absolute top-20 right-1/4 w-80 h-80 bg-neon/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-4xl mx-auto relative z-10">
+        <p class="section-label mb-4">// Daily Blog — Mole-Bio</p>
+        <h1 class="font-display text-5xl md:text-7xl font-extrabold text-white leading-none mb-6">
+            Nhật ký <span class="grad-text">Lab</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-xl">Những câu chuyện từ phòng thí nghiệm — nơi khoa học gặp gỡ cuộc sống.</p>
+    </div>
+</header>
+
+<!-- BLOG CONTENT -->
+<main class="py-16 px-6 md:px-16">
+    <div class="max-w-6xl mx-auto">
+        <hr class="neon-hr mb-10 reveal">
+
+        <!-- Filters -->
+        <div class="flex gap-3 mb-12 flex-wrap reveal">
+            <button class="filter-btn active" data-filter="all">ALL POSTS</button>
+            <button class="filter-btn" data-filter="dna">DNA</button>
+            <button class="filter-btn" data-filter="hormone">HORMONE</button>
+            <button class="filter-btn" data-filter="lab">LAB NOTES</button>
+        </div>
+
+        <!-- Featured -->
+        <div class="featured-card rounded-2xl p-8 md:p-10 mb-10 reveal" data-category="dna">
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-4 mb-5">
+                        <span class="font-mono text-xs bg-neon/10 text-neon border border-neon/30 px-3 py-1 rounded-sm">✦ FEATURED</span>
+                        <span class="font-mono text-xs text-slate-500">07 / 02 / 2026</span>
+                        <span class="font-mono text-xs text-slate-600 uppercase tracking-wider">· DNA</span>
+                    </div>
+                    <h2 class="font-display text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+                        Nhật ký Lab: Câu chuyện chưa kể của DNA
+                    </h2>
+                    <p class="text-slate-400 leading-relaxed mb-6 text-lg">
+                        DNA giống một cuốn sách khổng lồ, được tạo nên từ bốn "chữ cái" A, T, C và G — và mỗi trang đều chứa đựng bí ẩn về sự sống mà chúng tôi đang dần giải mã.
+                    </p>
+                    <a href="./blog1/sub.blog1.html" class="bio-tag hover:no-underline">Đọc thêm</a>
+                </div>
+                <div class="hidden md:flex items-center justify-center">
+                    <div class="w-48 h-48 rounded-2xl neon-border flex items-center justify-center bg-neon/5">
+                        <span class="text-7xl">🧬</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="blog-grid">
+            <article class="blog-card rounded-xl p-6 reveal reveal-delay-1" data-category="hormone">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="font-mono text-xs text-slate-600">24 / 03 / 2026</span>
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                    <span class="font-mono text-xs text-cyan/60 uppercase tracking-wider">Hormone</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-white mb-3 leading-snug">Cortisol – Khi hormone stress mất nhịp</h3>
+                <p class="text-slate-500 text-sm leading-relaxed mb-6">Vào buổi sáng, cortisol tăng cao để huy động năng lượng — nhưng điều gì xảy ra khi nhịp sinh học bị phá vỡ bởi áp lực hiện đại?</p>
+                <a href="./blog1/sub.blog1.html" class="bio-tag text-xs hover:no-underline">Đọc thêm</a>
+            </article>
+
+            <article class="blog-card rounded-xl p-6 reveal reveal-delay-2" data-category="lab">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="font-mono text-xs text-slate-600">Coming soon</span>
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                    <span class="font-mono text-xs text-neon/40 uppercase tracking-wider">Lab Notes</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-600 mb-3 leading-snug">PCR — Khuếch đại một đoạn gen</h3>
+                <p class="text-slate-700 text-sm leading-relaxed mb-6">Công nghệ nền tảng của sinh học phân tử hiện đại — từ chẩn đoán COVID đến giải trình tự toàn bộ hệ gen người.</p>
+                <span class="font-mono text-xs text-slate-700 border border-slate-800 px-3 py-1 inline-block">[ IN PROGRESS ]</span>
+            </article>
+
+            <article class="blog-card rounded-xl p-6 reveal reveal-delay-3" data-category="dna">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="font-mono text-xs text-slate-600">Coming soon</span>
+                    <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+                    <span class="font-mono text-xs text-neon/40 uppercase tracking-wider">DNA</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-600 mb-3 leading-snug">CRISPR-Cas9: Chiếc kéo phân tử</h3>
+                <p class="text-slate-700 text-sm leading-relaxed mb-6">Cách nhân loại học được cách "chỉnh sửa" bộ mã di truyền — và những câu hỏi đạo đức đi kèm.</p>
+                <span class="font-mono text-xs text-slate-700 border border-slate-800 px-3 py-1 inline-block">[ IN PROGRESS ]</span>
+            </article>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-neon/10 py-10 px-6 md:px-16 mt-20">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+            <span class="font-display font-bold text-white">Mole<span class="text-neon">-Bio</span></span>
+        </div>
+        <p class="font-mono text-xs text-slate-600">Lan tỏa tri thức sinh học phân tử đến cộng đồng.</p>
+        <p class="font-mono text-xs text-slate-700">&copy; 2026 Mole-Bio.</p>
+    </div>
+</footer>
+
+<script>
+// Navbar scroll
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObs.observe(el));
+
+// Blog filter (same as main script)
+const filterBtns = document.querySelectorAll('.filter-btn');
+const featuredCard = document.querySelector('.featured-card');
+const blogCards = document.querySelectorAll('#blog-grid article');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Featured
+        if (featuredCard) {
+            const match = filter === 'all' || featuredCard.dataset.category === filter;
+            featuredCard.style.transition = 'opacity 0.3s, transform 0.3s';
+            featuredCard.style.opacity = match ? '1' : '0.2';
+            featuredCard.style.transform = match ? 'translateY(0)' : 'translateY(8px)';
+        }
+
+        blogCards.forEach((card, i) => {
+            const match = filter === 'all' || card.dataset.category === filter;
+            card.style.transition = `opacity 0.3s ${i*0.05}s, transform 0.3s ${i*0.05}s`;
+            card.style.opacity = match ? '1' : '0.15';
+            card.style.transform = match ? 'translateY(0)' : 'translateY(8px)';
+            card.style.pointerEvents = match ? 'auto' : 'none';
+        });
+    });
+});
+</script>
+</body>
+</html>
